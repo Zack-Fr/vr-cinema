@@ -7,9 +7,9 @@ $input = json_decode(file_get_contents('php://input'), true);
 
 
 
-if (empty($input['email']) || empty($input['password'])) {
+if (empty($input['email']) || empty($input['password']) || empty($input['age'])) {
     http_response_code(400);
-    echo json_encode(['error' => 'Email and password are required']);
+    echo json_encode(['error' => 'All fields are required']);
     exit;
 }
 
