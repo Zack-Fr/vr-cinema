@@ -1,0 +1,84 @@
+<!-- client/pages/register.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Register | Cinema-VR</title>
+
+<!-- Grid utilities -->
+<link rel="stylesheet" href="../styles/grid.css">
+<!-- Base & Auth styles -->
+<link rel="stylesheet" href="../styles/styles.css">
+</head>
+<body class="auth-page">
+
+  <!-- Optional fixed navbar -->
+  <header class="navbar">
+    <div class="nav-left">
+      <h1 class="logo">VR Cinema</h1>
+    </div>
+  </header>
+
+  <!-- Registration card -->
+  <div class="auth-card">
+    <h2>Create an Account</h2>
+    <form id="register-form">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input 
+        type="text" 
+        id="name" 
+        name="name" 
+        placeholder="Your full name" 
+        required 
+        />
+    </div>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input 
+        type="email" 
+        id="email" 
+        name="email" 
+        placeholder="you@example.com" 
+        required 
+        />
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input 
+        type="password" 
+        id="password" 
+        name="password" 
+        placeholder="••••••••" 
+        required 
+        />
+    </div>
+    <div class="form-group">
+        <label for="confirm-password">Confirm Password</label>
+        <input 
+        type="password" 
+        id="confirm-password" 
+        name="confirm_password" 
+        placeholder="••••••••" 
+        required 
+        />
+    </div>
+    <button type="submit" class="button">Register</button>
+    </form>
+    <div class="auth-footer">
+    <a href="login.html">Already have an account? Login</a>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    &copy; 2025 VR Cinema. All rights reserved.
+</footer>
+
+<!-- Scripts -->
+<script src="../node_modules/axios/dist/axios.min.js"></script>
+<script src="../scripts/api.js"></script>
+<script src="../scripts/auth.js"></script>
+</body>
+</html>

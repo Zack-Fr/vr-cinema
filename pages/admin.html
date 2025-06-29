@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard | VR Cinema</title>
+  <!-- Custom grid utilities -->
+  <link rel="stylesheet" href="../styles/grid.css">
+  <!-- Base theme & components -->
+  <link rel="stylesheet" href="../styles/styles.css">
+</head>
+<body>
+
+  <!-- Fixed Navbar -->
+  <header class="navbar">
+    <div class="nav-left">
+      <h1 class="logo">VR Cinema</h1>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="profile.html">Profile</a>
+        <a href="#" id="logout-link">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Admin Panel Layout -->
+  <main class="grid grid-cols-2 gap-6" id="admin-page">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar admin-sidebar">
+      <h2>Admin Panel</h2>
+      <nav>
+        <ul>
+        <li><button id="btn-add-film">Add Film</button></li>
+        <li><button id="btn-import-showtimes">Import Showtimes</button></li>
+        <li><button id="btn-configure-seat-layout">Configure Seat Layout</button></li>
+        <li><button id="btn-adjust-pricing">Adjust Pricing</button></li>
+        </ul>
+    </nav>
+    </aside>
+
+    <!-- Dynamic Content Area -->
+    <section id="admin-content">
+    <!-- Forms & tables will be injected here by admin.js -->
+    </section>
+
+</main>
+
+<!-- Footer -->
+<footer>
+    &copy; 2025 VR Cinema. All rights reserved.
+</footer>
+
+<!-- Scripts: Axios + API wrapper + Admin logic -->
+<script src="../node_modules/axios/dist/axios.min.js"></script>
+<script src="../scripts/api.js"></script>
+<script src="../scripts/admin.js"></script>
+
+</body>
+</html>
