@@ -4,12 +4,12 @@ require_once __DIR__ . '/../config/connection.php';
 require_once __DIR__ . '/../models/Users.php';
 
 $input = json_decode(file_get_contents('php://input'), true);
-
-
-
-if (empty($input['email']) || empty($input['password']) || empty($input['age'])) {
+if (empty($input['email']) || empty($input['password'])) {
     http_response_code(400);
     echo json_encode(['error' => 'All fields are required']);
+    echo json_encode($input['email']);
+    echo json_encode($input['password']);
+    echo json_encode($input['name']);
     exit;
 }
 
@@ -17,6 +17,8 @@ try {
     // call create method
     $newId = User::create($mysqli, $input);
 
+    //immediate Session login
+    $_SESSION['user_id'] = $newId;
     
     http_response_code(201);
     echo json_encode(['status'=>201, 'user_id'=>$newId]);

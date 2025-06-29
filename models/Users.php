@@ -66,7 +66,7 @@ class User extends Model
     {
         $this->id = $data["id"];
         $this->name = $data["name"]; 
-        $this->age = $data["age"]; 
+        // $this->age = $data["age"]; 
         $this->email = $data["email"];
         $this->password = $data["password"];
         $this->created_at = $data["created_at"];
@@ -107,7 +107,7 @@ public function toArray(): array {
         'name'       => $this->name,
         'email'      => $this->email,
         'created_at' =>$this->created_at,
-        'age'        =>$this->age,
+        // 'age'        =>$this->age,
         'mobile_num' =>$this->mobile_num,
         
     ];

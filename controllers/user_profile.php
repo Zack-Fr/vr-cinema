@@ -10,12 +10,17 @@ if (empty($_SESSION['user_id'])) {
     exit;
 }
 $userId = $_SESSION['user_id'];
+$user = User::find($mysqli, $userId); 
+// echo $userId;
+
 // GET vs PUT handling
 if ($_SERVER['REQUEST_METHOD']==='GET') {
     $user = User::find($mysqli, $userId);
     echo json_encode(['user'=>$user->toArray()]);
+    
     exit;
 }
+
 if ($_SERVER['REQUEST_METHOD']==='PUT') {
     $input = json_decode(file_get_contents('php://input'), true);
     /** @var User $user */
@@ -24,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD']==='PUT') {
     if (isset($input['mobile_num'])) {
     $user->setMobileNum($input['mobile_num']);
 }
+//update data
     if (! $user->update($mysqli)) {
     http_response_code(500);
     echo json_encode(['error'=>'Could not save user']);

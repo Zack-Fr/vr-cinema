@@ -1,13 +1,21 @@
 <?php
 require_once __DIR__ . '/../config/connection.php';
 
-$requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$scriptName = str_replace('\\','/', $_SERVER['SCRIPT_NAME']);
+$requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);  
+$basePath   = dirname($scriptName);                              
+
+if (strpos($requestUri, $basePath) === 0) {
+    $uri = substr($requestUri, strlen($basePath));
+} else {
+    $uri = $requestUri;
+}
+$uri = $uri === '' ? '/' : $uri;
 
 $method = $_SERVER['REQUEST_METHOD'];
 
-
 // Route dispatch
-switch ("$method $requestUri") {
+switch ("$method $uri") {
 
     // ─── Authentication ────────────────────────────────────────────────────────
     case 'POST /register':
@@ -86,6 +94,7 @@ switch ("$method $requestUri") {
             'error' => 'Endpoint not found',
             'method' => $method,
             'uri'    => $uri,
+            'requestUri' =>$requestUri
             
         ]);
         
