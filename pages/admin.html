@@ -55,6 +55,49 @@
 <script src="../node_modules/axios/dist/axios.min.js"></script>
 <script src="../scripts/api.js"></script>
 <script src="../scripts/admin.js"></script>
+<script src="../scripts/auth.js"></script>
 
 </body>
+<!-- Templates -->
+  <template id="tmpl-add-film-form">
+    <h2>Add New Film</h2>
+    <form id="add-film-form" class="admin-form">
+      <div class="form-group">
+        <label for="film-title">Title</label>
+        <input type="text" id="film-title" name="title" required />
+      </div>
+      <div class="form-group">
+        <label for="film-cast">Cast</label>
+        <input type="text" id="film-cast" name="cast" required />
+      </div>
+      <div class="form-group">
+        <label for="film-genre">Genre</label>
+        <input type="text" id="film-genre" name="genre" required />
+      </div>
+      <div class="form-group">
+        <label for="film-rating">Rating</label>
+        <input type="text" id="film-rating" name="rating" required />
+      </div>
+      <div class="form-group">
+        <label>
+          <input type="checkbox" id="film-upcoming" name="is_upcoming" />
+          Upcoming Release
+        </label>
+      </div>
+      <div class="form-group">
+        <label for="film-release-date">Release Date</label>
+        <input type="date" id="film-release-date" name="release_date" required />
+      </div>
+      <div class="form-group">
+        <label for="film-description">Description</label>
+        <textarea id="film-description" name="description" rows="4" required></textarea>
+      </div>
+      <button type="submit" class="button">Add Film</button>
+    </form>
+    <div id="add-film-feedback" class="mt-1"></div>
+  </template>
+  <script src="../node_modules/axios/dist/axios.min.js"></script>
+    <script src="../scripts/api.js"></script>
+    <script src="../scripts/auth.js"></script>
+    <script src="../scripts/admin.js"></script>
 </html>

@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const profileRes = await api.get('/profile');
     const profile    = profileRes.data;
 
+    
     // Populate profile fields
     document.getElementById('profile-name').innerText   = profile.name || '—';
     document.getElementById('profile-email').innerText  = profile.email || '—';

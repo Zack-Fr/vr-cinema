@@ -30,7 +30,9 @@ if (registerForm) {
     try {
         const res = await api.post('/register', { name, email, password: pw });
         localStorage.setItem('token', res.data.token);
+        
         window.location.href = 'index.html';
+
     } catch (err) {
         console.error(err);
         alert(err.response?.data?.error || 'Registration failed.');

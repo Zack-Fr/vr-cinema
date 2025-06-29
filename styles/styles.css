@@ -1,6 +1,6 @@
 /* client/styles/styles.css
-   -------------------------------------------------------------------
-   VR Cinema Base & Component Styles (updated)
+  -------------------------------------------------------------------
+  VR Cinema Base & Component Styles (updated)
    ------------------------------------------------------------------- */
 
 /* 1. Theme Variables */
@@ -14,7 +14,7 @@
   --pending: #ffc107;
   --failed: #f44336;
   --radius: 6px;           /* Global border radius */
-  --hero-padding: 4rem;    /* Hero section vertical padding */
+  --hero-padding: rem;    /* Hero section vertical padding */
 }
 
 /* 2. Global Reset & Base */
@@ -59,6 +59,7 @@ button:hover {
 /* 4. Forms */
 .form-group {
   margin-bottom: 1rem;
+  margin-top: 2rem;
 }
 .form-group label {
   display: block;
@@ -76,6 +77,13 @@ textarea {
   border: 1px solid #333;
   border-radius: var(--radius);
   color: var(--text);
+}
+/* ─── Admin Forms ────────────────────────────────────────────────── */
+.admin-form {
+  max-width: 600px;
+  margin: 0 auto;
+  display: grid;
+  gap: 1rem;
 }
 
 /* 5. Navbar (glassmorphic style) */
