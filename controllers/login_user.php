@@ -19,6 +19,7 @@ if (!$user) {
     echo json_encode(['error'=>'Invalid credentials']);
     exit;
 }
+// $_SESSION['is_admin'] = $userRecord['is_admin'];
 // successful login
 $_SESSION['user_id'] = $user->toArray()['id'];
 echo json_encode(['status'=>200,'user'=>$user->toArray()]); 

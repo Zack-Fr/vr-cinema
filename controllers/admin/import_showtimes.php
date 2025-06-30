@@ -4,8 +4,8 @@
 session_start();
 header('Content-Type: application/json');
 
-// 1. Auth check (only logged‐in users for now)
-if (empty($_SESSION['user_id'])) {
+// 1. Auth check
+if (empty($_SESSION['user_id'])  || !$_SESSION['is_admin']) {
     http_response_code(401);
     echo json_encode(['error' => 'Not authenticated']);
     exit;

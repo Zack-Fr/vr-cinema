@@ -77,6 +77,10 @@ switch ("$method $uri") {
     case 'POST /admin/add-film':
         require_once __DIR__ . '/../controllers/admin/add_film.php';
         break;
+    case 'POST /admin/import-movies':
+        require_once __DIR__ . '/../controllers/admin/import_movies.php';
+        break;
+
     case 'POST /admin/import-showtimes':
         require_once __DIR__ . '/../controllers/admin/import_showtimes.php';
         break;
