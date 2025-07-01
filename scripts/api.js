@@ -1,9 +1,5 @@
-
-
 // 1. Create an Axios instance
 const api = axios.create({
-  // ↓ Change this to wherever your PHP is served:
-  //    e.g. 'http://localhost:8000' or 'http://localhost/cinema-vr/backend/public'
 baseURL: 'http://localhost:1111/cinema-vr/backend/public/index.php',
 
   // send cookies/session headers if your PHP uses them
@@ -24,5 +20,5 @@ if (token) {
 return config;
 }, error => Promise.reject(error));
 
-// 3. Expose globally so other scripts can call `api.get(...)`, `api.post(...)`
+// 3. Expose globally
 window.api = api;

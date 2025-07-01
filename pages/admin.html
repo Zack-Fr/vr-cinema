@@ -33,6 +33,7 @@
         <ul>
         <li><button id="btn-add-film">Add Film</button></li>
         <li><button id="btn-import-showtimes">Import Showtimes</button></li>
+        <li><button id="btn-import-movies">Import Movies</button></li>
         <li><button id="btn-configure-seat-layout">Configure Seat Layout</button></li>
         <li><button id="btn-adjust-pricing">Adjust Pricing</button></li>
         </ul>
@@ -96,6 +97,43 @@
     </form>
     <div id="add-film-feedback" class="mt-1"></div>
   </template>
+
+  <template id="tmpl-import-movies-form">
+    <h2>Bulk Import Movies</h2>
+    <form id="import-movies-form" class="admin-form">
+      <div class="form-group">
+        <label for="movies-json">Movies JSON</label>
+        <textarea id="movies-json" name="movies_json" rows="8"
+          placeholder='[{"title":"…","cast":"…",…,"showtimes":["…","…"]}, …]' 
+          required></textarea>
+      </div>
+      <button type="submit" class="button">Import Movies</button>
+    </form>
+    <div id="import-movies-feedback" class="mt-1"></div>
+  </template>
+
+  <template id="tmpl-configure-seat-layout-form">
+    <h2>Configure Seat Layout</h2>
+    <form id="configure-seat-layout-form" class="admin-form">
+      <div class="form-group">
+        <label for="layout-showtime">Showtime ID</label>
+        <input type="number" id="layout-showtime" name="showtime_id" required />
+      </div>
+      <div class="form-group">
+        <label for="layout-seats">Seats JSON</label>
+        <textarea
+          id="layout-seats"
+          name="seats_json"
+          rows="6"
+          placeholder='[{"row":"A","number":1},{"row":"A","number":2},…]'
+          required
+        ></textarea>
+      </div>
+      <button type="submit" class="button">Save Layout</button>
+    </form>
+    <div id="configure-seat-feedback" class="mt-1"></div>
+  </template>
+  
   <script src="../node_modules/axios/dist/axios.min.js"></script>
     <script src="../scripts/api.js"></script>
     <script src="../scripts/auth.js"></script>
