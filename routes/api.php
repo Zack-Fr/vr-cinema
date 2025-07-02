@@ -45,9 +45,11 @@ switch ("$method $uri") {
     case 'GET  /seat-layout':
         require_once __DIR__ . '/../controllers/get_seat_layout.php';
         break;
+
     case 'POST /check-seats':
         require_once __DIR__ . '/../controllers/check_seat_availability.php';
         break;
+
     case 'POST /book':
         require_once __DIR__ . '/../controllers/book_seats.php';
         break;
@@ -84,9 +86,11 @@ switch ("$method $uri") {
     case 'POST /admin/import-showtimes':
         require_once __DIR__ . '/../controllers/admin/import_showtimes.php';
         break;
+
     case 'POST /admin/configure-seat-layout':
         require_once __DIR__ . '/../controllers/admin/configure_seat_layout.php';
         break;
+
     case 'POST /admin/adjust-pricing':
         require_once __DIR__ . '/../controllers/admin/adjust_pricing.php';
         break;
@@ -98,7 +102,7 @@ switch ("$method $uri") {
             'error' => 'Endpoint not found',
             'method' => $method,
             'uri'    => $uri,
-            'requestUri' =>$requestUri
+            // 'requestUri' =>$requestUri
             
         ]);
         

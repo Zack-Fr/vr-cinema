@@ -5,11 +5,11 @@ session_start();
 header('Content-Type: application/json');
 
 // 1. Auth check
-if (empty($_SESSION['user_id']) || !$_SESSION['is_admin']) {
-    http_response_code(403);
-    echo json_encode(['error' => 'Forbidden']);
-    exit;
-}
+// if (empty($_SESSION['user_id']) || !$_SESSION['is_admin']) {
+//     http_response_code(403);
+//     echo json_encode(['error' => 'Forbidden']);
+//     exit;
+// }
 
 // 2. Decode & validate
 $input = json_decode(file_get_contents('php://input'), true);

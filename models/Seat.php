@@ -23,13 +23,64 @@ class Seat extends Model
     }
 
     /**
-     * Fetch all seats for a showtime (for layout rendering).
-     *
-     * @return Seat[]
+    *@param int $showtimeId
+    *@param string $row
+    *@param int $number  
+    *@param int $newSeatId
+    *@throws Exception
+    
      */
+        public static function create(mysqli $mysqli, int $showtimeId, string $row, int $number): int
+    {
+        $sql = "
+            INSERT INTO `" . static::$table . "`
+            (`showtime_id`, `row`, `number`)
+            VALUES (?, ?, ?)
+        ";
+        $stmt = $mysqli->prepare($sql);
+        if (!$stmt) {
+            throw new Exception('Prepare failed: ' . $mysqli->error);
+        }
+        $stmt->bind_param('isi', $showtimeId, $row, $number);
+        if (!$stmt->execute()) {
+            throw new Exception('Execute failed: ' . $stmt->error);
+        }
+        return $mysqli->insert_id;
+    }
+    /**
+        * @param int   $showtimeId
+        * @param int   $showtimeId
+        * @param array $seats         Array of ['row'=>'A','number'=>1] entries
+        * @return int[]               Array of newly inserted seat IDs
+        * @throws Exception           On any failure (rolls back)
+     */
+    public static function bulkCreate(mysqli $mysqli, int $showtimeId, array $seats): array
+    {
+        $mysqli->begin_transaction();
+        try {
+            $ids = [];
+            foreach ($seats as $s) {
+                // Expect each $s to have 'row' and 'number'
+                $r = $s['row']    ?? null;
+                $n = $s['number'] ?? null;
+                if ($r === null || $n === null) {
+                    throw new Exception('Invalid seat entry: ' . json_encode($s));
+                }
+                $ids[] = self::create($mysqli, $showtimeId, $r, (int)$n);
+            }
+            $mysqli->commit();
+            return $ids;
+        } catch (Exception $e) {
+            $mysqli->rollback();
+            throw $e;
+        }
+    }
+    /**  Fetch all seats for a showtime (for layout rendering).
+    *@return Seat[]
+    */
     public static function allByShowtime(mysqli $mysqli, int $showtimeId): array
     {
-        $sql  = "SELECT * FROM " . static::$table . " WHERE showtime_id = ? ORDER BY row, number";
+        $sql  = "SELECT * FROM " . static::$table . " WHERE `showtime_id` = ? ORDER BY `row`, `number`";
         $stmt = $mysqli->prepare($sql);
         $stmt->bind_param("i", $showtimeId);
         $stmt->execute();
@@ -46,6 +97,8 @@ class Seat extends Model
      * Bulk‐update seat statuses (e.g. mark as 'booked').
      *
      * @param int[] $seatIds
+     * @param string $newStatus
+     * @return bool
      */
     public static function updateStatusBulk(mysqli $mysqli, array $seatIds, string $newStatus): bool
     {

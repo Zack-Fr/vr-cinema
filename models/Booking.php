@@ -21,9 +21,7 @@ class Booking extends Model
         $this->user_id     = $data['user_id'];
         $this->showtime_id = $data['showtime_id'];
         // ensure seats is always an array
-        $this->seats       = is_array($data['seats'])
-                            ? $data['seats']
-                            : json_decode($data['seats'], true);
+        $this->seats       = is_array($data['seats'])? $data['seats']: json_decode($data['seats'], true);
         $this->status      = $data['status'];
         $this->created_at  = $data['created_at'];
         $this->updated_at  = $data['updated_at'];
@@ -40,11 +38,11 @@ class Booking extends Model
     public static function create(mysqli $mysqli, int $userId, int $showtimeId, array $seats): int
     {
         $jsonSeats = $mysqli->real_escape_string(json_encode($seats));
-        $status    = 'pending';
+        $status = 'pending';
 
         $sql  = "INSERT INTO " . static::$table . " (user_id, showtime_id, seats, status) VALUES (?, ?, ?, ?)";
         $stmt = $mysqli->prepare($sql);
-        $stmt->bind_param("iiss", $userId, $showtimeId, $jsonSeats, $status);
+        $stmt->bind_param("issi", $userId, $showtimeId, $jsonSeats, $status);
 
         if (!$stmt->execute()) {
             throw new Exception("Booking creation failed: " . $stmt->error);

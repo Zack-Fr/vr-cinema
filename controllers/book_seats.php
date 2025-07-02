@@ -69,5 +69,9 @@ catch (Exception $e) {
     $mysqli->rollback();
     http_response_code(500);
     echo json_encode(['error' => 'Booking failed', 'details' => $e->getMessage()]);
-    echo json_encode([$showtimeId]);
+    // echo json_encode([$userId]);
+    // echo json_encode([$showtimeId]);
+    // echo json_encode([$requestedSeats]);
+    
+    // echo json_encode([$allSeats]);
 }
