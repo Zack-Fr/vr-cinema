@@ -1,110 +1,63 @@
 <?php
-require_once __DIR__ . '/../config/connection.php';
+require __DIR__ . '/../config/connection.php';
+// This block is used to extract the route name from the URL
+//----------------------------------------------------------
+// Define your base directory 
+$base_dir = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/');
+$request = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-$scriptName = str_replace('\\','/', $_SERVER['SCRIPT_NAME']);
-$requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);  
-$basePath   = dirname($scriptName);                              
-
-if (strpos($requestUri, $basePath) === 0) {
-    $uri = substr($requestUri, strlen($basePath));
-} else {
-    $uri = $requestUri;
+// Remove the base directory from the request if present
+if (strpos($request, $base_dir) === 0) {
+    $request = substr($request, strlen($base_dir));
 }
-$uri = $uri === '' ? '/' : $uri;
 
+// Ensure the request is at least '/'
+if ($request == '') {
+    $request = '/';
+}
 $method = $_SERVER['REQUEST_METHOD'];
 
-// Route dispatch
-switch ("$method $uri") {
 
-    // ─── Authentication ────────────────────────────────────────────────────────
-    case 'POST /register':
-        require_once __DIR__ . '/../controllers/register_user.php';
-        break;
-    case 'POST /login':
-        require_once __DIR__ . '/../controllers/login_user.php';
-        break;
-    case 'POST /logout':
-        require_once __DIR__ . '/../controllers/logout_user.php';
-        break;
+$apis = [
+    '/get_movies' => ['controller' => 'MovieController', 'method' => 'getAllMovies'],
 
-    // ─── User Profile ─────────────────────────────────────────────────────────
-    case 'GET /profile':
-        require_once __DIR__ . '/../controllers/user_profile.php';
-        break;
+    '/get_showtime' => ['controller' => 'ShowtimeController', 'method' => 'getShowtime'],
 
-    // ─── Movies & Showtimes ───────────────────────────────────────────────────
-    case 'GET /movies':
-        require_once __DIR__ . '/../controllers/get_movies.php';
-        break;
-    case 'GET /showtimes':
-        require_once __DIR__ . '/../controllers/get_showtimes.php';
-        break;
+    // '/delete_articles'         => ['controller' => 'ArticleController', 'method' => 'deleteAllArticles'],
 
-    // ─── Seating & Booking ────────────────────────────────────────────────────
-    case 'GET  /seat-layout':
-        require_once __DIR__ . '/../controllers/get_seat_layout.php';
-        break;
+    // '/delete_article_byId'         => ['controller' => 'ArticleController', 'method' => 'deleteById'],
 
-    case 'POST /check-seats':
-        require_once __DIR__ . '/../controllers/check_seat_availability.php';
-        break;
+    // '/add_article'         => ['controller' => 'ArticleController', 'method' => 'addArticle'],
 
-    case 'POST /book':
-        require_once __DIR__ . '/../controllers/book_seats.php';
-        break;
+    // '/update_article'         => ['controller' => 'ArticleController', 'method' => 'updateArticle'],
 
-    // ─── Discounts & Coupons ──────────────────────────────────────────────────
-    case 'POST /apply-discount':
-        require_once __DIR__ . '/../controllers/apply_discount.php';
-        break;
+    // '/get_article_id'         => ['controller' => 'ArticleController', 'method' => 'getArticleById'],
 
-    // ─── Social / Group Features ──────────────────────────────────────────────
-    case 'POST /invite':
-        require_once __DIR__ . '/../controllers/invite_friend.php';
-        break;
-    case 'POST /split-payment':
-        require_once __DIR__ . '/../controllers/split_payment.php';
-        break;
+    //===============================users
 
-    // ─── Automation & Extras ──────────────────────────────────────────────────
-    case 'POST /schedule-auto-booking':
-        require_once __DIR__ . '/../controllers/schedule_auto_booking.php';
-        break;
-    case 'POST /preorder-snacks':
-        require_once __DIR__ . '/../controllers/pre_order_snacks.php';
-        break;
+    '/login_user'         => ['controller' => 'AuthController', 'method' => 'loginUser'],
+    '/register_user'         => ['controller' => 'AuthController', 'method' => 'registerUser'],
+    '/logout_user'         => ['controller' => 'AuthController', 'method' => 'logoutUser'],
 
-    // ─── Admin Panel ─────────────────────────────────────────────────────────
-    case 'POST /admin/add-film':
-        require_once __DIR__ . '/../controllers/admin/add_film.php';
-        break;
-    case 'POST /admin/import-movies':
-        require_once __DIR__ . '/../controllers/admin/import_movies.php';
-        break;
+];
 
-    case 'POST /admin/import-showtimes':
-        require_once __DIR__ . '/../controllers/admin/import_showtimes.php';
-        break;
+//Routing Logic here 
+//This is a dynamic logic, that works on any array... 
+//----------------------------------------------------------
 
-    case 'POST /admin/configure-seat-layout':
-        require_once __DIR__ . '/../controllers/admin/configure_seat_layout.php';
-        break;
+if (isset($apis[$request])) {
+    $controller_name = $apis[$request]['controller']; //if $request == /articles, then the $controller_name will be "ArticleController" 
+    $method = $apis[$request]['method'];
+    require_once "../controllers/{$controller_name}.php";
+    // echo $controller_name;
 
-    case 'POST /admin/adjust-pricing':
-        require_once __DIR__ . '/../controllers/admin/adjust_pricing.php';
-        break;
-
-    // ─── Fallback ─────────────────────────────────────────────────────────────
-    default:
-        http_response_code(404);
-        echo json_encode([
-            'error' => 'Endpoint not found',
-            'method' => $method,
-            'uri'    => $uri,
-            // 'requestUri' =>$requestUri
-            
-        ]);
-        
-        break;
+    $controller = new $controller_name();
+    if (method_exists($controller, $method)) {
+        $controller->$method();
+    } else {
+        echo "Error: Method {$method} not found in {$controller_name}.";
+    }
+} else {
+    echo "404 Not Found";
+    echo "$request";
 }

@@ -29,11 +29,6 @@ class MovieSeeder
         require_once __DIR__ . '/../models/Showtime.php';
 
         foreach ($items as $movieData) {
-            // In MovieSeeder->run(), before inserting:
-        // $this->db->query('SET FOREIGN_KEY_CHECKS=0');
-        // $this->db->query('TRUNCATE TABLE showtimes');
-        // $this->db->query('TRUNCATE TABLE movies');
-        // $this->db->query('SET FOREIGN_KEY_CHECKS=1');
 
             // 2. Insert movie
             $movieId = Movies::create($this->db, [
@@ -48,11 +43,11 @@ class MovieSeeder
             echo "Created movie ID {$movieId}: {$movieData['title']}\n";
 
             // 3. Bulk‐create showtimes
-            $times = $movieData['showtimes'] ?? [];
-            if ($times) {
-                $created = Showtime::bulkCreate($this->db, $movieId, $times);
-                echo "  → Showtimes: " . implode(', ', $created) . "\n";
-            }
+            // $times = $movieData['showtimes'] ?? [];
+            // if ($times) {
+            //     $created = Showtime::bulkCreate($this->db, $movieId, $times);
+            //     echo "  → Showtimes: " . implode(', ', $created) . "\n";
+            // }
         }
     }
 }

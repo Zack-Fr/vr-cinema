@@ -1,5 +1,4 @@
 <?php
-// backend/controllers/check_seat_availability.php
 
 session_start();
 header('Content-Type: application/json');
