@@ -1,9 +1,7 @@
 <?php
-
-
 require_once __DIR__ . '/Model.php';
 
-class Movies extends Model
+class Movie extends Model
 {
     // 1. Table name (used by parent::find / parent::all)
     protected static string $table = 'movies';
@@ -21,12 +19,12 @@ class Movies extends Model
     // 3. Hydrate from DB row
     public function __construct(array $data)
     {
-        $this->id           = (int) ($data['id']           ?? 0);
+        $this->id           = (int) ($data['id']          ?? 0);
         $this->title        = $data['title']              ?? '';
         $this->cast         = $data['cast']               ?? '';
         $this->genre        = $data['genre']              ?? '';
         $this->rating       = $data['rating']             ?? '';
-        $this->is_upcoming  = (int) ($data['is_upcoming']  ?? 0);
+        $this->is_upcoming  = (int) ($data['is_upcoming'] ?? 0);
         $this->release_date = $data['release_date']       ?? '';
         $this->description  = $data['description']        ?? '';
     }
@@ -62,6 +60,7 @@ class Movies extends Model
 
         return $mysqli->insert_id;
     }
+
 
     // 5. toArray for JSON responses
     public function toArray(): array
