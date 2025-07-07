@@ -28,7 +28,7 @@ if (registerForm) {
     }
 
     try {
-        const res = await api.post('/register', { name, email, password: pw });
+        const res = await api.post('/register_user', { name, email, password: pw });
         localStorage.setItem('token', res.data.token);
         
         window.location.href = 'index.html';
@@ -48,7 +48,7 @@ if (loginForm) {
     const pw    = loginForm.password.value;
 
       try {
-        const res = await api.post('/login', { email, password: pw });
+        const res = await api.post('/login_user', { email, password: pw });
         localStorage.setItem('token', res.data.token);
         window.location.href = 'index.html';
       } catch (err) {
