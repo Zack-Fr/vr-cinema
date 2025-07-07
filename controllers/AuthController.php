@@ -8,7 +8,8 @@ class AuthController {
 
 public static function loginUser()
     {
-global $mysqli;
+    global $mysqli;
+
 $input = json_decode(file_get_contents('php://input'), true);
 
 if (empty($input['email']) || empty($input['password'])) {
@@ -94,25 +95,33 @@ echo json_encode([
 ]);
 
 }
-public static function getUsers(){
+public static function getUser(){
     global $mysqli;
     session_start();
-    if (empty($_SESSION['user_id'])) {
+
+if (empty($_SESSION['id'])) {
     http_response_code(401);
     echo json_encode(['error'=>'Not authenticated']);
     exit;
 }
-$userId = $_SESSION['user_id'];
-$user = User::find($mysqli, $userId); 
-// echo $userId;
 
+if(!isset($_GET["id"])){
+
+    $userId =(int) $_GET['id'];
+    $user = User::find($mysqli, $userId)->toArray(); 
+    echo $user;
+    
+}
 // GET vs PUT handling
 if ($_SERVER['REQUEST_METHOD']==='GET') {
+    $userId =(int) $_GET['id'];
     $user = User::find($mysqli, $userId);
     echo json_encode(['user'=>$user->toArray()]);
     
     exit;
 }
+
+
 
 if ($_SERVER['REQUEST_METHOD']==='PUT') {
     $input = json_decode(file_get_contents('php://input'), true);

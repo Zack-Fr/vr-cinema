@@ -1,9 +1,17 @@
 <?php
+// require(__DIR__ . "/../models/Movie.php");
+// require(__DIR__ . "/../models/Showtime.php");
+require_once(__DIR__ . "/../config/connection.php");
+// require(__DIR__ . "/../services/MovieService.php");
+// require(__DIR__ . "/../services/ResponseService.php");
 
+class AdminController {
+
+public static function addFilm(){
 session_start();
 header('Content-Type: application/json');
 
-// // 1. Auth check
+// 1. Auth check
 // if (empty($_SESSION['user_id']) || !$_SESSION['is_admin']) {
 //     http_response_code(401);
 //     echo json_encode(['error' => 'Not authenticated']);
@@ -36,7 +44,7 @@ require_once __DIR__ . '/../../models/Movies.php';
 
 try {
     // 4. Create the movie
-    $newId = Movies::create($mysqli, [
+    $newId = Movie::create($mysqli, [
         'title'        => $title,
         'cast'         => $cast,
         'genre'        => $genre,
@@ -60,4 +68,6 @@ try {
     'error'   => 'Could not add film',
     'details' => $e->getMessage()
     ]);
+}
+} 
 }

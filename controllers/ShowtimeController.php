@@ -10,11 +10,11 @@ class ShowtimeController{
     global $mysqli;
     header('Content-Type: application/json');
 
-// if (empty($_SESSION['user_id'])) {
-//     http_response_code(401);
-//     echo json_encode(['error' => 'Not authenticated']);
-//     exit;
-// }
+if (empty($_SESSION['user_id'])) {
+    http_response_code(401);
+    echo json_encode(['error' => 'Not authenticated']);
+    exit;
+}
 
         global $mysqli;
         //if no id return all
