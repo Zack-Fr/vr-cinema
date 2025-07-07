@@ -12,13 +12,14 @@ headers: {
 });
 
 // 2. Attach auth token (if stored in localStorage) to every request
-api.interceptors.request.use(config => {
-const token = localStorage.getItem('token');
-if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-}
-return config;
-}, error => Promise.reject(error));
+// api.interceptors.request.use(config => {
+// const token = localStorage.getItem('token');
+// if (token) {
+//     config.headers.Authorization = `Bearer ${token}`;
+// }
+// return config;
+// }, error => Promise.reject(error));
 
 // 3. Expose globally
+console.log(api);
 window.api = api;

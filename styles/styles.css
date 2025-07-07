@@ -174,7 +174,7 @@ textarea {
 .movie-card {
   position: relative;
   background-color: var(--bg-alt);
-  border-radius: var(--radius);
+  /* border-radius: var(--radius); */
   overflow: hidden;
   /* neon outline */
   border: 1px solid var(--accent);
@@ -261,7 +261,7 @@ background: var(--bg);
 
 .profile-card {
 background-color: var(--bg-alt);
-border: 1px solid var(--accent);
+border: 7px solid var(--accent);
 border-radius: var(--radius);
 padding: 2rem;
 width: 100%;
