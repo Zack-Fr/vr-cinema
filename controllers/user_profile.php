@@ -4,11 +4,11 @@ header('Content-Type: application/json');
 require_once '../config/connection.php';
 require_once '../models/Users.php';
 
-if (empty($_SESSION['user_id'])) {
-    http_response_code(401);
-    echo json_encode(['error'=>'Not authenticated']);
-    exit;
-}
+// if (empty($_SESSION['user_id'])) {
+//     http_response_code(401);
+//     echo json_encode(['error'=>'Not authenticated']);
+//     exit;
+// }
 $userId = $_SESSION['user_id'];
 $user = User::find($mysqli, $userId); 
 // echo $userId;

@@ -23,22 +23,14 @@ $apis = [
 
     '/get_showtime' => ['controller' => 'ShowtimeController', 'method' => 'getShowtime'],
 
-    // '/delete_articles'         => ['controller' => 'ArticleController', 'method' => 'deleteAllArticles'],
-
-    // '/delete_article_byId'         => ['controller' => 'ArticleController', 'method' => 'deleteById'],
-
-    // '/add_article'         => ['controller' => 'ArticleController', 'method' => 'addArticle'],
-
-    // '/update_article'         => ['controller' => 'ArticleController', 'method' => 'updateArticle'],
-
-    // '/get_article_id'         => ['controller' => 'ArticleController', 'method' => 'getArticleById'],
 
     //===============================users
 
     '/login_user'         => ['controller' => 'AuthController', 'method' => 'loginUser'],
     '/register_user'         => ['controller' => 'AuthController', 'method' => 'registerUser'],
     '/logout_user'         => ['controller' => 'AuthController', 'method' => 'logoutUser'],
-
+    '/get_users'         => ['controller' => 'AuthController', 'method' => 'getUsers'],
+    
 ];
 
 //Routing Logic here 
